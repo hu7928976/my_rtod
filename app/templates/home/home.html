@@ -1,0 +1,267 @@
+{% extends 'base.html' %} {% block title %}智能分析系统{% endblock %} {% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pages/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/public/iconfont.css') }}"> {% endblock %} {% block content %}
+<div class="header" role="header">
+    <span class="title">智能分析器</span>
+    <div class="portrait">
+        <!-- admin用户
+            <ul>
+                <li class="updata">修改密码</li>
+                <li class="logout">退出登录</li>
+            </ul> -->
+
+        <div class="upgrad logout">
+            <span class="iconfont icon-a-shinshoptuichudenglu"></span> 退出登录
+        </div>
+        <div class="upgrad updata ">
+            <span class="iconfont icon-xiugaimima"></span> 修改密码
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="card detail">
+        <div class="row">
+            <img src="../../static/assets/image/detail.png" alt="" class="detail-img">
+            <div style="flex: 1;">
+                <div class="border-bottom  row">
+                    <div class="row-item">
+                        <div class="label">设备号：</div>
+                        <div>{{ rtod['default']['sn'] }}</div>
+                    </div>
+                    <div class="row-item">
+                        <div class="label">型号：</div>
+                        <div>{{ rtod['default']['model'] }}</div>
+                    </div>
+                </div>
+                <div class="row" style="border:none">
+                    <div class="row-item">
+                        <div class="label">类型：</div>
+                        <div>{{ rtod['default']['type'] }}</div>
+                    </div>
+                    <div class="row-item">
+                        <div class="label">CPU：</div>
+                        <div>{{ rtod['default']['cpu'] }}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="row-item">
+                <div class="label">GPU：</div>
+                <div>{{ rtod['default']['gpu'] }}</div>
+            </div>
+            <div class="row-item">
+                <div class="label">操作系统：</div>
+                <div>{{ rtod['system'] }}</div>
+            </div>
+            <div class="row-item">
+                <div class="label">运行时长：</div>
+                <div>{{ rtod['runtime'] }}</div>
+            </div>
+        </div>
+        <div class="row" style="border:none">
+            <div class="row-item">
+                <div class="label">NPU：</div>
+                <div>{{ rtod['default']['npu'] }}</div>
+            </div>
+            <div class="row-item">
+                <div class="label">当前版本：</div>
+                <div>{{ rtod['version']['number'] }}</div>
+            </div>
+            <div class="row-item">
+            </div>
+        </div>
+    </div>
+    <div class="card aisle">
+        <div class="aisle-title">
+            <span class="iconfont icon-tongdaoxinxi icon-box"></span> 通道信息
+        </div>
+        <div class="aisle-item">
+            <div class="txt-c">{{ rtod['channel']['total'] }}</div>
+            <div class="aisle-label">配置通道总数量</div>
+        </div>
+        <div class="flex">
+            <div class="aisle-item">
+                <div class="txt-c">{{ rtod['channel']['online'] }}</div>
+                <div class="aisle-label">配置通道在线数量</div>
+            </div>
+            <div class="aisle-item">
+                <div class="txt-c">{{ rtod['channel']['offline'] }}</div>
+                <div class="aisle-label">配置通道离线数量</div>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="aisle-item">
+                <div class="txt-c">{{ rtod['channel']['inferring'] }}</div>
+                <div class="aisle-label">配置通道分析中数量</div>
+            </div>
+            <div class="aisle-item">
+                <div class="txt-c">{{ rtod['channel']['idle'] }}</div>
+                <div class="aisle-label">配置通道空闲中数量</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="content">
+    <div class="card smile">
+        <div class="aisle-title mar-bot">
+            <span class="iconfont icon-box icon-wangkou"></span> 网口信息
+            <span class="iconfont icon-shezhi1 " style="float: right;" id="setting"></span>
+            <span class="status">在线</span>
+        </div>
+        <div class="smile-row">
+            <div class="smile-label">
+                <span class="iconfont icon-IPdizhi"></span>
+                <span>IP地址：</span>
+            </div>
+            <span>{{ rtod['network']['ip'] }}</span>
+        </div>
+        <div class="smile-row">
+            <div class="smile-label">
+                <span class="iconfont icon-ziwangyanma-12"></span>
+                <span>子网掩码：</span>
+            </div>
+            <span>{{ rtod['network']['netmask'] }}</span>
+        </div>
+        <div class="smile-row">
+            <div class="smile-label">
+                <span class="iconfont icon-wangguandizhi"></span>
+                <span>网关地址：</span>
+            </div>
+            <span>{{ rtod['network']['gateway'] }}</span>
+        </div>
+        <div class="smile-row">
+            <div class="smile-label">
+                <span class="iconfont icon-DNS"></span>
+                <span>DNS：</span>
+            </div>
+            <span>{{ rtod['network']['dns'] }}</span>
+        </div>
+    </div>
+    <div class="card smile">
+        <div class="aisle-title mar-bot">
+            <span class="iconfont icon-box icon-pingtaixinxi"></span> 平台信息
+            <span class="status">已连接</span>
+        </div>
+        <div class="smile-row">
+            <div class="smile-label">
+                <span class="iconfont icon-xiangmu"></span>
+                <span>所属机构：</span>
+            </div>
+            <span>{{ rtod['platform']['orgname'] }}</span>
+        </div>
+        <div class="smile-row">
+            <div class="smile-label">
+                <span class="iconfont icon-jigou"></span>
+                <span>机构编号：</span>
+            </div>
+            <span>{{ rtod['platform']['orgcode'] }}</span>
+        </div>
+        <div class="smile-row">
+            <div class="smile-label">
+                <span class="iconfont icon-dizhi1"></span>
+                <span>平台地址</span>
+            </div>
+            <span>{{ rtod['platform']['platform'] }}</span>
+        </div>
+    </div>
+    <div class="card smile">
+        <div class="aisle-title mar-bot">
+            <span class="iconfont icon-box icon-xitongxinxi"></span> 系统信息
+        </div>
+        <div class="storage">
+            <div class="flex" style="justify-content: space-between;color: #A6AAB2;">
+                <span>内存已用/内存容量</span>
+                <div>
+                    <span style="color:#FF5983">{{ rtod['memory']['memRealUsed'] }}M</span>/{{ rtod['memory']['memTotal'] }}M
+                </div>
+            </div>
+            <div class="pro" style="">
+                <div class="sto-pro" value="{{ rtod['memory']['memUsedPercent'] }}" style="background-image: linear-gradient(270deg, #FC99B5 0%, #F9455F 100%);"></div>
+            </div>
+        </div>
+        <div class="storage">
+            <div class="flex" style="justify-content: space-between;color: #A6AAB2;">
+                <span>储存已用/储存容量</span>
+                <div>
+                    <span style="color:#00D9B5">{{ rtod['disk'][1] }}</span>/{{ rtod['disk'][0] }}
+                </div>
+            </div>
+            <div class="pro" style="">
+                <div class="sto-pro" value="{{ rtod['disk'][-1].strip('%') }}" style="background: linear-gradient(270deg, #4BC9AC 0%, #4080CB 100%);"></div>
+            </div>
+        </div>
+        <div class="storage">
+            <div class="flex" style="justify-content: space-between;color: #A6AAB2;">
+                <span>已配置通道数/最大分析路数</span>
+                <div>
+                    <span style="color:#00D9B5">{{ rtod['channel']['total'] }}路</span>/{{ rtod['channel']['max'] }}路
+                </div>
+            </div>
+            <div class="pro" style="">
+                <div class="sto-pro" value="{{ rtod['channel']['usage'] }}" style="background: linear-gradient(270deg, #FFAA94 0%, #FF715B 100%);"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mask"></div>
+<div class="model">
+    <div class="model-title">
+        修改网络配置
+    </div>
+    <div class="select-box" name="bootproto">
+        <div value="static" class="active">静态IP</div>
+        <div value="dhcp">动态IP</div>
+    </div>
+    <div class="static">
+        <div class="form-box">
+            <label for="address">IP</label>
+            <input type="text" placeholder="请输入IP地址" name="address" value="{{ rtod['network']['ip'] }}">
+        </div>
+        <div class="form-box">
+            <label for="netmask">子网掩码</label>
+            <input type="text" placeholder="请输入IP地址" name="netmask" value="{{ rtod['network']['netmask'] }}">
+        </div>
+        <div class="form-box">
+            <label for="gateway">网关地址</label>
+            <input type="text" name="gateway" placeholder="请输入网关地址" value="{{ rtod['network']['gateway'] }}">
+        </div>
+        <div class="form-box">
+            <label for="dns">DNS</label>
+            <input type="text" name="dns" placeholder="请输入dns" value="{{ rtod['network']['dns'] }}">
+        </div>
+    </div>
+    <div style="color:#fff" class="dhcp">
+        设置动态IP需要登录【餐安通管理平台】-【设备管理】-【智能分析器】中查看智能分析器ip地址，并手动在地址栏输入ip地址访问智能分析器后台
+    </div>
+    <div class="model-footer">
+        <button id="cancel">取消</button>
+        <button id="submit">确定</button>
+    </div>
+</div>
+<div class="model1">
+    <div class="model-title">
+        修改密码
+    </div>
+    <div class="form-box">
+        <label for="oldPassWord">旧密码</label>
+        <input type="text" placeholder="请输入旧密码" name="oldPassWord">
+    </div>
+    <div class="form-box">
+        <label for="newPassWord">新密码</label>
+        <input type="text" placeholder="请输入新密码" name="newPassWord">
+    </div>
+    <div class="form-box">
+        <label for="newPassWord1">重复新密码</label>
+        <input type="text" placeholder="请输入重复新密码" name="newPassWord1">
+    </div>
+    <div class="model-footer">
+        <button id="cancel1">取消</button>
+        <button id="submit1">确定</button>
+    </div>
+</div>
+<noscript>请启用javaScript</noscript>{% endblock %} {% block js %}
+<script src="{{ url_for('static', filename='js/pages/home.js') }}"></script>
+{% endblock %}
