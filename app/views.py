@@ -3,7 +3,13 @@
 # @Time      :2022/4/24 11:34
 
 # 创建蓝图
-from flask import Blueprint, redirect
+from hashlib import md5
+from flask import Blueprint, redirect, render_template, request,session
+import requests
+
+from app import ini_auth
+
+
 
 rtod = Blueprint('ai-rtod', __name__)
 
@@ -22,15 +28,29 @@ def index():
 def change_password():
     pass
 
-
+# 注销
 @rtod.route('/logout')
 def logut():
-    pass
+    session['sign_in'] = False
 
-
+# 登录
 @rtod.route('/login', methods = ['GET', 'POST'])
 def login():
-    pass
+    # 判断是否授权
+    if not ini_auth.has():
+        return redirect('/auth')
+    
+    if session.get('sign_in'):
+        return redirect('/index')
+
+    # 安全设置， 防止通过GET方式提交密码
+    if request.method == 'GET':
+        return render_template('login/login.html')
+
+    password = md5(requests.form.get('password').\
+        encode(encoding = 'utf-8')).hexdigest
+    
+    if password == ini_auth.get('account', 'password'):
 
 
 @rtod.route('/check_password', methods=['GET', 'POST'])
