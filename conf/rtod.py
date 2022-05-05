@@ -27,9 +27,11 @@ class PMApi:
     URL = "http://192.168.1.110"
     DEVICECODE = "/pm/dm/getDeviceCode"
     GRANT = "pm/pm/grant"
-    GETDEVICEINFO = "pm/pm/getDeviceInfo"
-    UPDATE = "pm/update/callback"
-    REVOKEAUTH = "/pm/pm/revokeAuth"
+    GETDEVICEINFO = "pm/pm/getDeviceInfo" #  查询获取授权
+    UPDATE = "pm/update/callback"  # 更新
+    REVOKEAUTH = "/pm/pm/revokeAuth" # 删授权
+    REPORT = "/pm/log/pass/report" # 日志上报
+
 
 # 业务平台API配置
 class PlatformApi:
