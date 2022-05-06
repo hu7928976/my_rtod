@@ -30,7 +30,7 @@ def change_password():
 
 # 注销
 @rtod.route('/logout')
-def logut():
+def logout():
     session['sign_in'] = False
 
 # 登录
@@ -49,8 +49,10 @@ def login():
 
     password = md5(requests.form.get('password').\
         encode(encoding = 'utf-8')).hexdigest
-    
-    if password == ini_auth.get('account', 'password'):
+    #  没有讲授权获取到的密码内容小写。不知是否有影响。
+    if password == ini_rtod.get('account', 'password'):
+
+        pass
 
 
 @rtod.route('/check_password', methods=['GET', 'POST'])
@@ -71,7 +73,7 @@ def grant():
 
 
 @rtod.route('/set-network', methods = ['GET', 'POST'])
-def set_networt():
+def set_network():
     pass
 
 
@@ -80,4 +82,4 @@ def get_device_info():
     pass
 
 
-
+print(ini_auth.get('account','password'))
